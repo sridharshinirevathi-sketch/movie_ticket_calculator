@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Ticket Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>🎬 Movie Ticket Calculator</h1>
+        <p>Book your movie tickets easily</p>
+    </header>
+
+    <section class="movies">
+
+        <div class="movie-card">
+            <img src="image/JanaNayagan Movie Poster _ Thalapathy Vijay.jpeg" alt="Jananayagan">
+            <h2>Jananayagan</h2>
+            <button onclick="selectMovie('Jananayagan')">
+                Select Movie
+            </button>
+        </div>
+
+        <div class="movie-card">
+            <img src="image/Spider Man.jpeg" alt="Spider-Man">
+            <h2>Spider-Man: Brand New Day</h2>
+            <button onclick="selectMovie('Spider-Man: Brand New Day')">
+                Select Movie
+            </button>
+        </div>
+
+        <div class="movie-card">
+            <img src="image/Vishwanath & Sons Poster 1.jpeg" alt="Vishwanathan & Sons">
+            <h2>Vishwanathan & Sons</h2>
+            <button onclick="selectMovie('Vishwanathan & Sons')">
+                Select Movie
+            </button>
+        </div>
+
+    </section>
+    
+    <section class="booking">
+
+    <h2>🎟️ Book Tickets</h2>
+
+    <label>Username</label>
+    <input
+        type="text"
+        id="username"
+        placeholder="Enter username"
+        required
+    >
+
+    <label>Email ID</label>
+    <input
+        type="email"
+        id="emailId"
+        placeholder="Enter email ID"
+        required
+    >
+
+    <label>Selected Movie</label>
+    <input type="text" id="movieName" readonly>
+
+    <label>Show Time</label>
+    <select id="showTime">
+        <option value="10:00 AM">10:00 AM</option>
+        <option value="2:00 PM">2:00 PM</option>
+        <option value="6:00 PM">6:00 PM</option>
+        <option value="10:00 PM">10:00 PM</option>
+    </select>
+
+    <label>Adult Tickets (₹200)</label>
+    <input type="number" id="adultTickets" value="0" min="0">
+
+    <label>Child Tickets (₹120)</label>
+    <input type="number" id="childTickets" value="0" min="0">
+
+    <label>Snacks</label>
+    <select id="snacks">
+        <option value="0">No Snacks</option>
+        <option value="150">Popcorn - ₹150</option>
+        <option value="100">Coke - ₹100</option>
+        option value="220">Popcorn + Coke - ₹220</option>
+    </select>
+
+    <button class="book-btn" onclick="calculateTicket()">
+        Calculate & Book
+    </button>
+    
+
+    <a class="book-btn" href="/export-bookings" download>
+        Download Bookings for Excel
+        Download booking.xlsx
+    </a>
+
+</section>
+
+</section>
+
+    <section class="result" id="result">
+        <h2>Booking Summary</h2>
+        <div id="summary"></div>
+       
+    </section>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
+</html>
+
