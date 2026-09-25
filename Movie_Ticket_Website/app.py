@@ -1,6 +1,7 @@
 import csv
 import io
 import json
+import os
 from http import HTTPStatus
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -126,7 +127,6 @@ class BookingRequestHandler(SimpleHTTPRequestHandler):
                     subtotal, discount, gst, total_amount
                 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, values)
-            return cursor.lastrowid
             booking_id = cursor.lastrowid
 
         create_booking_workbook()
@@ -150,14 +150,10 @@ class BookingRequestHandler(SimpleHTTPRequestHandler):
         writer = csv.writer(output)
         writer.writerow(headers)
         writer.writerows(rows)
-        # UTF-8 BOM lets Microsoft Excel display names correctly by default.
-        body = ("\ufeff" + output.getvalue()).encode("utf-8")
         create_booking_workbook()
         body = WORKBOOK_PATH.read_bytes()
 
         self.send_response(HTTPStatus.OK)
-        self.send_header("Content-Type", "text/csv; charset=utf-8")
-        self.send_header("Content-Disposition", "attachment; filename=movie_bookings.csv")
         self.send_header(
             "Content-Type",
             "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -171,12 +167,12 @@ class BookingRequestHandler(SimpleHTTPRequestHandler):
 if __name__ == "__main__":
     initialize_database()
     create_booking_workbook()
-    server = ThreadingHTTPServer(("127.0.0.1", 5001), BookingRequestHandler)
-    print("Movie Ticket Website is running at http://127.0.0.1:5001")
+    port = int(os.environ.get("PORT", "5001"))
+    server = ThreadingHTTPServer(("0.0.0.0", port), BookingRequestHandler)
+    print(f"Movie Ticket Website is running on port {port}")
     try:
         server.serve_forever()
     except KeyboardInterrupt:
         print("\nServer stopped.")
     finally:
-        server.server_close()
         server.server_close()

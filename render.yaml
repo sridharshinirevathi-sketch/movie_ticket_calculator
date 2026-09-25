@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: movie-ticket-calculator
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    dockerContext: .

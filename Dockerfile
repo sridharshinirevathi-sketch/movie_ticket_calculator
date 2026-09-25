@@ -1,12 +1,12 @@
-FROM gcc:14
+FROM python:3.12-slim
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y --no-install-recommends libsqlite3-dev \
-    && rm -rf /var/lib/apt/lists/*
+COPY Movie_Ticket_Website/requirements.txt ./requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-COPY movie_ticket.cpp .
+COPY Movie_Ticket_Website/ ./Movie_Ticket_Website/
 
-RUN g++ -std=c++17 movie_ticket.cpp -lsqlite3 -o movie_ticket
+WORKDIR /app/Movie_Ticket_Website
 
-CMD ["./movie_ticket"]
+CMD ["python", "app.py"]
